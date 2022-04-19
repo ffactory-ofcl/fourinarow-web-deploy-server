@@ -1,2 +1,1 @@
 github-webhook==1.0.4
-importlib-metadata==4.11.3
