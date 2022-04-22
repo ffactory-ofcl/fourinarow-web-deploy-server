@@ -2,7 +2,7 @@ import subprocess
 from github_webhook import Webhook
 from flask import Flask
 
-secret = open("secret", "r").readline()
+secret = open("secret", "r").readline().strip()
 
 app = Flask(__name__)
 webhook = Webhook(app, secret=secret)  # Defines '/postreceive' endpoint
