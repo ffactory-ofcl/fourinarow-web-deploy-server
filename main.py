@@ -1,16 +1,21 @@
 import subprocess
+import os
+
+from dotenv import load_dotenv
 from github_webhook import Webhook
 from flask import Flask
 
-secret = open("secret", "r").readline().strip()
+load_dotenv()
+
+secret = os.getenv("SIMPLE_DEPLOY_SECRET")
+port = int(os.getenv("SIMPLE_DEPLOY_PORT"))
 
 app = Flask(__name__)
 webhook = Webhook(app, secret=secret)  # Defines '/postreceive' endpoint
 
-
 @app.route("/")
 def hello_world():
-    return "Hello, World!"
+    return "OK"
 
 
 @webhook.hook()  # Defines a handler for the 'push' event
@@ -20,4 +25,4 @@ def on_push(data):
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=40148)
+    app.run(host="127.0.0.1", port=port)
